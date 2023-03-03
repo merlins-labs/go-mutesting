@@ -7,7 +7,7 @@ go-mutesting is a framework for performing mutation testing on Go source code. I
 The following command mutates the go-mutesting project with all available mutators.
 
 ```bash
-go-mutesting github.com/osmosis-labs/go-mutesting/...
+go-mutesting github.com/merlins-labs/go-mutesting/...
 ```
 
 The execution of this command prints for every mutation if it was successfully tested or not. If not, the source code patch is printed out, so the mutation can be investigated. The following shows an example for a patch of a mutation.
@@ -46,14 +46,14 @@ The definition of mutation testing is best quoted from Wikipedia:
 
 Although the definition states that the main purpose of mutation testing is finding implementation cases which are not covered by tests, other implementation flaws can be found too. Mutation testing can for example uncover dead and unneeded code.
 
-Mutation testing is also especially interesting for comparing automatically generated test suites with manually written test suites. This was the original intention of go-mutesting which is used to evaluate the generic fuzzing and delta-debugging framework [Tavor](https://github.com/osmosis-labs/tavor).
+Mutation testing is also especially interesting for comparing automatically generated test suites with manually written test suites. This was the original intention of go-mutesting which is used to evaluate the generic fuzzing and delta-debugging framework [Tavor](https://github.com/merlins-labs/tavor).
 
 ## <a name="how-do-i-use-go-mutesting"></a>How do I use go-mutesting?
 
 go-mutesting includes a binary which is go-getable.
 
 ```bash
-go get -t -v github.com/osmosis-labs/go-mutesting/...
+go get -t -v github.com/merlins-labs/go-mutesting/...
 ```
 
 The binary's help can be invoked by executing the binary without arguments or with the `--help` argument.
@@ -69,7 +69,7 @@ The targets of the mutation testing can be defined as arguments to the binary. E
 The following example gathers all Go files which are defined by the targets and generate mutations with all available mutators of the binary.
 
 ```bash
-go-mutesting parse.go example/ github.com/osmosis-labs/go-mutesting/mutator/...
+go-mutesting parse.go example/ github.com/merlins-labs/go-mutesting/mutator/...
 ```
 
 Every mutation has to be tested using an [exec command](#write-mutation-exec-commands). By default the built-in exec command is used, which tests a mutation using the following steps:
@@ -78,10 +78,10 @@ Every mutation has to be tested using an [exec command](#write-mutation-exec-com
 - Execute all tests of the package of the mutated file.
 - Report if the mutation was killed.
 
-Alternatively the `--exec` argument can be used to invoke an external exec command. The [/scripts/exec](/scripts/exec) directory holds basic exec commands for Go projects. The [test-mutated-package.sh](/scripts/exec/test-mutated-package.sh) script implements all steps and almost all features of the built-in exec command. It can be for example used to test the [github.com/osmosis-labs/go-mutesting/example](/example) package.
+Alternatively the `--exec` argument can be used to invoke an external exec command. The [/scripts/exec](/scripts/exec) directory holds basic exec commands for Go projects. The [test-mutated-package.sh](/scripts/exec/test-mutated-package.sh) script implements all steps and almost all features of the built-in exec command. It can be for example used to test the [github.com/merlins-labs/go-mutesting/example](/example) package.
 
 ```bash
-go-mutesting --exec "$GOPATH/src/github.com/osmosis-labs/go-mutesting/scripts/exec/test-mutated-package.sh" github.com/osmosis-labs/go-mutesting/example
+go-mutesting --exec "$GOPATH/src/github.com/merlins-labs/go-mutesting/scripts/exec/test-mutated-package.sh" github.com/merlins-labs/go-mutesting/example
 ```
 
 The execution will print the following output.
@@ -89,11 +89,11 @@ The execution will print the following output.
 > **Note**: This output is from an older version of go-mutesting. Up to date versions of go-mutesting will have different mutations.
 
 ```diff
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.0" with checksum b705f4c99e6d572de509609eb0a625be
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.1" with checksum eb54efffc5edfc7eba2b276371b29836
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.2" with checksum 011df9567e5fee9bf75cbe5d5dc1c81f
---- /home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go
-+++ /tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.3
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.0" with checksum b705f4c99e6d572de509609eb0a625be
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.1" with checksum eb54efffc5edfc7eba2b276371b29836
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.2" with checksum 011df9567e5fee9bf75cbe5d5dc1c81f
+--- /home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go
++++ /tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.3
 @@ -16,7 +16,7 @@
         }
 
@@ -103,11 +103,11 @@ PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-l
         }
 
         n++
-FAIL "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.3" with checksum 82fc14acf7b561598bfce25bf3a162a2
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.4" with checksum 5720f1bf404abea121feb5a50caf672c
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.5" with checksum d6c1b5e25241453128f9f3bf1b9e7741
---- /home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go
-+++ /tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.6
+FAIL "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.3" with checksum 82fc14acf7b561598bfce25bf3a162a2
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.4" with checksum 5720f1bf404abea121feb5a50caf672c
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.5" with checksum d6c1b5e25241453128f9f3bf1b9e7741
+--- /home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go
++++ /tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.6
 @@ -24,7 +24,6 @@
         n += bar()
 
@@ -116,8 +116,8 @@ PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-l
 
         return n
  }
-FAIL "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.6" with checksum 5b1ca0cfedd786d9df136a0e042df23a
-PASS "/tmp/go-mutesting-422402775//home/osmosis-labs/go/src/github.com/osmosis-labs/go-mutesting/example/example.go.8" with checksum 6928f4458787c7042c8b4505888300a6
+FAIL "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.6" with checksum 5b1ca0cfedd786d9df136a0e042df23a
+PASS "/tmp/go-mutesting-422402775//home/merlins-labs/go/src/github.com/merlins-labs/go-mutesting/example/example.go.8" with checksum 6928f4458787c7042c8b4505888300a6
 The mutation score is 0.750000 (6 passed, 2 failed, 0 skipped, total is 8)
 ```
 
@@ -140,7 +140,7 @@ The example output of the [How do I use go-mutesting?](#how-do-i-use-go-mutestin
 The blacklist file, which is named `example.blacklist` in this example, can then be used to invoke go-mutesting.
 
 ```bash
-go-mutesting --blacklist example.blacklist github.com/osmosis-labs/go-mutesting/example
+go-mutesting --blacklist example.blacklist github.com/merlins-labs/go-mutesting/example
 ```
 
 The execution will print the following output.
@@ -237,11 +237,11 @@ Examples for exec commands can be found in the [scripts](/scripts/exec) director
 
 ## <a name="write-mutators"></a>How do I write my own mutators?
 
-Each mutator must implement the `Mutator` interface of the [github.com/osmosis-labs/go-mutesting/mutator](https://godoc.org/github.com/osmosis-labs/go-mutesting/mutator#Mutator) package. The methods of the interface are described in detail in the source code documentation.
+Each mutator must implement the `Mutator` interface of the [github.com/merlins-labs/go-mutesting/mutator](https://godoc.org/github.com/merlins-labs/go-mutesting/mutator#Mutator) package. The methods of the interface are described in detail in the source code documentation.
 
-Additionally each mutator has to be registered with the `Register` function of the [github.com/osmosis-labs/go-mutesting/mutator](https://godoc.org/github.com/osmosis-labs/go-mutesting/mutator#Mutator) package to make it usable by the binary.
+Additionally each mutator has to be registered with the `Register` function of the [github.com/merlins-labs/go-mutesting/mutator](https://godoc.org/github.com/merlins-labs/go-mutesting/mutator#Mutator) package to make it usable by the binary.
 
-Examples for mutators can be found in the [github.com/osmosis-labs/go-mutesting/mutator](https://godoc.org/github.com/osmosis-labs/go-mutesting/mutator) package and its sub-packages.
+Examples for mutators can be found in the [github.com/merlins-labs/go-mutesting/mutator](https://godoc.org/github.com/merlins-labs/go-mutesting/mutator) package and its sub-packages.
 
 ## <a name="other-projects"></a>Other mutation testing projects and their flaws
 

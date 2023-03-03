@@ -6,9 +6,9 @@ import (
 	"go/types"
 	"strings"
 
-	mutesting "github.com/osmosis-labs/go-mutesting"
-	"github.com/osmosis-labs/go-mutesting/astutil"
-	"github.com/osmosis-labs/go-mutesting/mutator"
+	mutesting "github.com/merlins-labs/go-mutesting"
+	"github.com/merlins-labs/go-mutesting/astutil"
+	"github.com/merlins-labs/go-mutesting/mutator"
 )
 
 func init() {
