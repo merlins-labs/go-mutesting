@@ -7,8 +7,8 @@ import (
 
 	"strings"
 
-	"github.com/osmosis-labs/go-mutesting/astutil"
-	"github.com/osmosis-labs/go-mutesting/mutator"
+	"github.com/merlins-labs/go-mutesting/astutil"
+	"github.com/merlins-labs/go-mutesting/mutator"
 )
 
 func init() {

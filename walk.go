@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/osmosis-labs/go-mutesting/mutator"
+	"github.com/merlins-labs/go-mutesting/mutator"
 	"github.com/zimmski/go-mutesting"
 )
 

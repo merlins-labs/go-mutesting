@@ -22,13 +22,13 @@ import (
 	"github.com/zimmski/go-tool/importing"
 	"github.com/zimmski/osutil"
 
-	"github.com/osmosis-labs/go-mutesting"
-	"github.com/osmosis-labs/go-mutesting/astutil"
-	"github.com/osmosis-labs/go-mutesting/mutator"
-	_ "github.com/osmosis-labs/go-mutesting/mutator/branch"
-	_ "github.com/osmosis-labs/go-mutesting/mutator/cosmos"
-	_ "github.com/osmosis-labs/go-mutesting/mutator/expression"
-	_ "github.com/osmosis-labs/go-mutesting/mutator/statement"
+	"github.com/merlins-labs/go-mutesting"
+	"github.com/merlins-labs/go-mutesting/astutil"
+	"github.com/merlins-labs/go-mutesting/mutator"
+	_ "github.com/merlins-labs/go-mutesting/mutator/branch"
+	_ "github.com/merlins-labs/go-mutesting/mutator/cosmos"
+	_ "github.com/merlins-labs/go-mutesting/mutator/expression"
+	_ "github.com/merlins-labs/go-mutesting/mutator/statement"
 )
 
 const (
