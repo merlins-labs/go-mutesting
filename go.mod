@@ -1,4 +1,4 @@
-module github.com/osmosis-labs/go-mutesting
+module github.com/merlins-labs/go-mutesting
 
 go 1.10
 
